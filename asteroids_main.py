@@ -33,8 +33,17 @@ class GameRunner:
 
 
     def _game_loop(self):
-        self.__screen.draw_ship(self.__ship.x, self.__ship.y, self.__ship.degrees)
+        self.__screen.draw_ship(self.__ship.x, self.__ship.y, self.__ship.heading)
 
+        if self.__screen.is_left_pressed():
+            self.__ship.change_heading(0)
+        if self.__screen.is_right_pressed():
+            self.__ship.change_heading(1)
+        if self.__screen.is_up_pressed():
+            self.__ship.accelerate()
+
+        self.__ship.move(self.__screen_min_x, self.__screen_max_x,
+                         self.__screen_min_y, self.__screen_max_y)
 
 def main(amount):
     runner = GameRunner(amount)

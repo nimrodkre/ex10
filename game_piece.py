@@ -37,3 +37,17 @@ class GamePiece:
     @speed_y.setter
     def speed_y(self, speed_y):
         self.__speed_y = speed_y
+
+    def move(self, screen_min_x, screen_max_x, screen_min_y, screen_max_y):
+        """
+        moves according to the given instructions
+        :return: None
+        """
+        delta_x = screen_max_x - screen_min_x
+        delta_y = screen_max_y - screen_min_y
+
+        new_x = screen_min_x + (self.x + self.speed_x - screen_min_x) % delta_x
+        new_y = screen_min_y + (self.y + self.speed_y - screen_min_y) % delta_y
+
+        self.x = new_x
+        self.y = new_y
