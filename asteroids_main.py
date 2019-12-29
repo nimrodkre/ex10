@@ -17,7 +17,7 @@ class GameRunner:
         self.__screen_min_y = Screen.SCREEN_MIN_Y
         self.__ship = Ship(randint(self.__screen_min_x, self.__screen_max_x),
                            randint(self.__screen_min_y, self.__screen_max_y),
-                           0)
+                           0, 0, 0)
 
     def run(self):
         self._do_loop()
