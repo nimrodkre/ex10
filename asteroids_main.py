@@ -20,8 +20,7 @@ class GameRunner:
 
     def _do_loop(self):
         # You should not to change this method!
-        
-		self._game_loop()
+        self._game_loop()
         # Set the timer to go off again
         self.__screen.update()
         self.__screen.ontimer(self._do_loop, 5)
