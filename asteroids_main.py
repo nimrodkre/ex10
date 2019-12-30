@@ -32,6 +32,7 @@ class GameRunner:
         self.__asteroids = None
         self.__torpedoes = []
         self.__score = 0
+        self.__life = 3
 
     def build_game(self):
         self.__ship = Ship(randint(self.__screen_min_x, self.__screen_max_x),
@@ -105,6 +106,7 @@ class GameRunner:
                 self.__screen.show_message("Collision", "ship collided with "
                                                         "asteroid")
                 self.__screen.remove_life()
+                self.__life -= 1
                 collided_asteroids.append(asteroid)
 
         # remove all collided asteroids
@@ -131,10 +133,16 @@ class GameRunner:
             self.__torpedoes.append(torpedo)
             self.__screen.register_torpedo(torpedo)
         self.__remove_old_torpedoes()
+        game_over_msg = self.__is_game_over()
+        if game_over_msg is not None:
+            self.__screen.show_message("Game Over", game_over_msg)
+            self.__screen.end_game()
+            sys.exit()
 
     def __torpedoes_asteroid_hit(self):
         """
         Checks if one of the torpedoes hit one of the asteroids and acts appropriately
+        :return: None
         """
         for asteroid in self.__asteroids:
             for torpedo in self.__torpedoes:
@@ -146,6 +154,7 @@ class GameRunner:
     def __torpedo_hit(self, asteroid, torpedo):
         """
         A hit occurred, remove the hit asteroid and the hitting torpedo, and split the asteroid if i is a big one
+        :return: None
         """
         self.__score += SCORE_TABLE[asteroid.size]
         new_asteroid_size = asteroid.size - 1
@@ -179,6 +188,7 @@ class GameRunner:
     def __remove_old_torpedoes(self):
         """
         Increase the age of the existing torpedoes and remove the old ones.
+        :return: None
         """
         new_torpedoes = []
         for torpedo in self.__torpedoes:
@@ -188,6 +198,19 @@ class GameRunner:
             else:
                 self.__screen.unregister_torpedo(torpedo)
         self.__torpedoes = new_torpedoes
+
+    def __is_game_over(self):
+        """
+        Checks if the game is over and creates an appropriate exit message
+        :return: An exit message if the game is over, otherwise None
+        """
+        if self.__screen.should_end():
+            return 'Sorry to see you want to leave. Good bye!'
+        if self.__life == 0:
+            return 'You fought bravely, but lost. Good bye!'
+        if not any(self.__asteroids):
+            return 'You saved the galaxy! No asteroids left!'
+        return None
 
 
 def main(amount):
