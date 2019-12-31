@@ -35,21 +35,44 @@ class GameRunner:
         self.__life = 3
 
     def build_game(self):
+        """
+        in charge of building the game, ships and asteroids at the beginning
+        :return: 
+        """
         self.__ship = Ship(randint(self.__screen_min_x, self.__screen_max_x),
                            randint(self.__screen_min_y, self.__screen_max_y),
                            0, 0, 0)
 
-        self.__asteroids = self.build_asteroids(self.__asteroids_amount)
+        self.__asteroids = self.__build_asteroids(self.__asteroids_amount)
 
         for asteroid in self.__asteroids:
             self.__screen.register_asteroid(asteroid, asteroid.size)
 
-    def build_asteroids(self, asteroids_amounts):
+    def __build_asteroids(self, asteroids_amounts):
+        """
+        builds the asteroids
+        :param asteroids_amounts: number of asteroids to build 
+        :return: list with all asteroids
+        """
         ASTEROID_SIZE = 3
-        return [Asteroid(randint(self.__screen_min_x, self.__screen_max_x),
-                         randint(self.__screen_min_y, self.__screen_max_y),
-                         ASTEROID_SIZE, randint(1, 4), randint(1, 4))
-                for i in range(asteroids_amounts)]
+        asteroids = []
+
+        for i in range(asteroids_amounts):
+            asteroid = Asteroid(randint(self.__screen_min_x,
+                                        self.__screen_max_x),
+                                randint(self.__screen_min_y,
+                                        self.__screen_max_y),
+                                ASTEROID_SIZE, randint(1, 4), randint(1, 4))
+            while asteroid.has_intersection(self.__ship):
+                asteroid = Asteroid(randint(self.__screen_min_x,
+                                            self.__screen_max_x),
+                                    randint(self.__screen_min_y,
+                                            self.__screen_max_y),
+                                    ASTEROID_SIZE, randint(1, 4),
+                                    randint(1, 4))
+            asteroids.append(asteroid)
+
+        return asteroids
 
     def run(self):
         self._do_loop()
@@ -63,7 +86,7 @@ class GameRunner:
         self.__screen.update()
         self.__screen.ontimer(self._do_loop, 5)
 
-    def move_all_gamepieces(self):
+    def __move_all_gamepieces(self):
         """
         moves all ships, asteroids, torpedoes
         :return: None
@@ -79,7 +102,7 @@ class GameRunner:
             torpedo.move(self.__screen_min_x, self.__screen_max_x,
                          self.__screen_min_y, self.__screen_max_y)
 
-    def draw_all_gamepieces(self):
+    def __draw_all_gamepieces(self):
         """
         draws all gamepieces, ships, asteroids, torpedoes
         :return: None
@@ -91,11 +114,12 @@ class GameRunner:
             self.__screen.draw_asteroid(asteroid, asteroid.x, asteroid.y)
 
         for torpedo in self.__torpedoes:
-            self.__screen.draw_torpedo(torpedo, torpedo.x, torpedo.y, torpedo.degrees)
+            self.__screen.draw_torpedo(torpedo, torpedo.x, torpedo.y,
+                                       torpedo.degrees)
 
         self.__screen.set_score(self.__score)
 
-    def ship_asteroid_collision(self):
+    def __ship_asteroid_collision(self):
         """
         checks if there are any intersections with an asteroid or ship
         :return: None
@@ -115,9 +139,14 @@ class GameRunner:
             self.__asteroids.remove(asteroid)
 
     def _game_loop(self):
-        self.draw_all_gamepieces()
-        self.move_all_gamepieces()
-        self.ship_asteroid_collision()
+        """
+        The brain of the game, in charge of moving pieces and checking if 
+        a command has been evoked.
+        :return: 
+        """
+        self.__draw_all_gamepieces()
+        self.__move_all_gamepieces()
+        self.__ship_asteroid_collision()
         self.__torpedoes_asteroid_hit()
 
         if self.__screen.is_left_pressed():
@@ -126,10 +155,15 @@ class GameRunner:
             self.__ship.change_heading(0)
         if self.__screen.is_up_pressed():
             self.__ship.accelerate()
-        if self.__screen.is_space_pressed() and len(self.__torpedoes) < MAX_TORPEDO_NUM:
-            x_speed = self.__ship.speed_x + 2 * math.cos(math.radians(self.__ship.heading))
-            y_speed = self.__ship.speed_y + 2 * math.sin(math.radians(self.__ship.heading))
-            torpedo = Torpedo(self.__ship.x, self.__ship.y, self.__ship.heading, x_speed, y_speed)
+        #TODO: Should be seperate function
+        if self.__screen.is_space_pressed() and len(
+                self.__torpedoes) < MAX_TORPEDO_NUM:
+            x_speed = self.__ship.speed_x + 2 * math.cos(
+                math.radians(self.__ship.heading))
+            y_speed = self.__ship.speed_y + 2 * math.sin(
+                math.radians(self.__ship.heading))
+            torpedo = Torpedo(self.__ship.x, self.__ship.y,
+                              self.__ship.heading, x_speed, y_speed)
             self.__torpedoes.append(torpedo)
             self.__screen.register_torpedo(torpedo)
         self.__remove_old_torpedoes()
@@ -148,12 +182,14 @@ class GameRunner:
             for torpedo in self.__torpedoes:
                 if asteroid.has_intersection(torpedo):
                     self.__torpedo_hit(asteroid, torpedo)
-                    # No need to continue scanning the other torpedoes if the asteroid was hit
+                    # No need to continue scanning the other torpedoes if 
+                    # the asteroid was hit
                     break
 
     def __torpedo_hit(self, asteroid, torpedo):
         """
-        A hit occurred, remove the hit asteroid and the hitting torpedo, and split the asteroid if i is a big one
+        A hit occurred, remove the hit asteroid and the hitting torpedo, and 
+        split the asteroid if i is a big one
         :return: None
         """
         self.__score += SCORE_TABLE[asteroid.size]
@@ -162,9 +198,12 @@ class GameRunner:
         # Remove and unregister the torpedo and the asteroid
         self.__screen.unregister_asteroid(asteroid)
         self.__screen.unregister_torpedo(torpedo)
-        self.__torpedoes = [curr_torpedo for curr_torpedo in self.__torpedoes if
+
+        self.__torpedoes = [curr_torpedo for curr_torpedo in self.__torpedoes
+                            if
                             curr_torpedo is not torpedo]
-        self.__asteroids = [curr_asteroid for curr_asteroid in self.__asteroids if
+        self.__asteroids = [curr_asteroid for curr_asteroid in
+                            self.__asteroids if
                             curr_asteroid is not asteroid]
 
         # Split the asteroid if it is not a small one
@@ -175,15 +214,19 @@ class GameRunner:
                     (asteroid.speed_x ** 2 + asteroid.speed_y ** 2) ** 0.5)
 
             # Create two asteroids with opposite speeds
-            first_new_asteroid = Asteroid(asteroid.x, asteroid.y, new_asteroid_size, speed_x, speed_y)
-            second_new_asteroid = Asteroid(asteroid.x, asteroid.y, new_asteroid_size, speed_x * -1,
+            first_new_asteroid = Asteroid(asteroid.x, asteroid.y,
+                                          new_asteroid_size, speed_x, speed_y)
+            second_new_asteroid = Asteroid(asteroid.x, asteroid.y,
+                                           new_asteroid_size, speed_x * -1,
                                            speed_y * -1)
 
             # Add and register the new asteroids
             self.__asteroids.append(first_new_asteroid)
             self.__asteroids.append(second_new_asteroid)
-            self.__screen.register_asteroid(first_new_asteroid, new_asteroid_size)
-            self.__screen.register_asteroid(second_new_asteroid, new_asteroid_size)
+            self.__screen.register_asteroid(first_new_asteroid,
+                                            new_asteroid_size)
+            self.__screen.register_asteroid(second_new_asteroid,
+                                            new_asteroid_size)
 
     def __remove_old_torpedoes(self):
         """
