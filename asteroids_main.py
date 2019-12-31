@@ -133,6 +133,7 @@ class GameRunner:
                 self.__life -= 1
                 collided_asteroids.append(asteroid)
 
+        #TODO: Should be seperate function
         # remove all collided asteroids
         for asteroid in collided_asteroids:
             self.__screen.unregister_asteroid(asteroid)
@@ -206,6 +207,7 @@ class GameRunner:
                             self.__asteroids if
                             curr_asteroid is not asteroid]
 
+        #TODO: Maybe seperate function?
         # Split the asteroid if it is not a small one
         if new_asteroid_size != 0:
             speed_x = (torpedo.speed_x + asteroid.speed_x) / (
