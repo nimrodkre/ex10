@@ -7,14 +7,24 @@ from ship import Ship
 from asteroid import Asteroid
 from torpedo import Torpedo
 
-DEFAULT_ASTEROIDS_NUM = 5
 SCORE_TABLE = {
     3: 20,
     2: 50,
     1: 100
 }
+DEFAULT_ASTEROIDS_NUM = 5
+ASTEROID_SIZE = 3
+ASTEROID_MIN_SPEED_X = 1
+ASTEROID_MAX_SPEED_X = 4
+ASTEROID_MIN_SPEED_Y = 1
+ASTEROID_MAX_SPEED_Y = 4
 MAX_TORPEDO_NUM = 10
 MAX_TORPEDO_LIFE = 200
+START_SCORE = 0
+START_LIFE = 3
+SHIP_HEADER_START = 0
+SHIP_SPEED_X_START = 0
+SHIP_SPEED_Y_START = 0
 
 
 class GameRunner:
@@ -31,8 +41,8 @@ class GameRunner:
         self.__ship = None
         self.__asteroids = None
         self.__torpedoes = []
-        self.__score = 0
-        self.__life = 3
+        self.__score = START_SCORE
+        self.__life = START_LIFE
 
     def build_game(self):
         """
@@ -41,7 +51,8 @@ class GameRunner:
         """
         self.__ship = Ship(randint(self.__screen_min_x, self.__screen_max_x),
                            randint(self.__screen_min_y, self.__screen_max_y),
-                           0, 0, 0)
+                           SHIP_HEADER_START, SHIP_SPEED_X_START,
+                           SHIP_SPEED_Y_START)
 
         self.__asteroids = self.__build_asteroids(self.__asteroids_amount)
 
@@ -54,7 +65,6 @@ class GameRunner:
         :param asteroids_amounts: number of asteroids to build 
         :return: list with all asteroids
         """
-        ASTEROID_SIZE = 3
         asteroids = []
 
         for i in range(asteroids_amounts):
@@ -62,14 +72,20 @@ class GameRunner:
                                         self.__screen_max_x),
                                 randint(self.__screen_min_y,
                                         self.__screen_max_y),
-                                ASTEROID_SIZE, randint(1, 4), randint(1, 4))
+                                ASTEROID_SIZE, randint(ASTEROID_MIN_SPEED_X,
+                                                       ASTEROID_MAX_SPEED_X),
+                                randint(ASTEROID_MIN_SPEED_X,
+                                        ASTEROID_MAX_SPEED_Y))
             while asteroid.has_intersection(self.__ship):
                 asteroid = Asteroid(randint(self.__screen_min_x,
                                             self.__screen_max_x),
                                     randint(self.__screen_min_y,
                                             self.__screen_max_y),
-                                    ASTEROID_SIZE, randint(1, 4),
-                                    randint(1, 4))
+                                    ASTEROID_SIZE,
+                                    randint(ASTEROID_MIN_SPEED_X,
+                                            ASTEROID_MAX_SPEED_X),
+                                    randint(ASTEROID_MIN_SPEED_X,
+                                            ASTEROID_MAX_SPEED_Y))
             asteroids.append(asteroid)
 
         return asteroids
@@ -176,7 +192,8 @@ class GameRunner:
 
     def __torpedoes_asteroid_hit(self):
         """
-        Checks if one of the torpedoes hit one of the asteroids and acts appropriately
+        Checks if one of the torpedoes hit one of the asteroids and acts
+        appropriately
         :return: None
         """
         for asteroid in self.__asteroids:

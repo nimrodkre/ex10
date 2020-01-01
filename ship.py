@@ -1,12 +1,16 @@
 from game_piece import GamePiece
 import math
 
+RADIUS = 1
+DEGREES_CHANGE = 7
+DEGREES_CIRCLE = 360
+
 
 class Ship(GamePiece):
     def __init__(self, x, y, heading, speed_x, speed_y):
         GamePiece.__init__(self, x, y, speed_x, speed_y)
         self.__heading = heading
-        self.__radius = 1
+        self.__radius = RADIUS
 
     @property
     def heading(self):
@@ -28,9 +32,11 @@ class Ship(GamePiece):
         :return: None
         """
         if side:
-            self.heading = (self.heading + 7) % 360
+            new_heading = (self.heading + DEGREES_CHANGE) % DEGREES_CIRCLE
         else:
-            self.heading = (self.heading - 7) % 360
+            new_heading = (self.heading - DEGREES_CHANGE) % DEGREES_CIRCLE
+
+        self.heading = new_heading
 
     def accelerate(self):
         """
@@ -42,3 +48,4 @@ class Ship(GamePiece):
 
         self.speed_x = new_speed_x
         self.speed_y = new_speed_y
+

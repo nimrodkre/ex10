@@ -1,6 +1,9 @@
 from game_piece import GamePiece
 import math
 
+MIN_SIZE = 1
+MAX_SIZE = 3
+
 
 class Asteroid(GamePiece):
     def __init__(self, x, y, size, speed_x, speed_y):
@@ -13,10 +16,11 @@ class Asteroid(GamePiece):
 
     @size.setter
     def size(self, size):
-        if type(size) != int:
+        if isinstance(size, int):
             raise TypeError("Expected int")
-        if size < 1 or size > 3:
-            raise ValueError("Asteroid size between 1 and 3")
+        if size < MIN_SIZE or size > MAX_SIZE:
+            raise ValueError("Asteroid size between {0} and {1}".format(
+                MIN_SIZE, MAX_SIZE))
 
         self.__size = size
 
