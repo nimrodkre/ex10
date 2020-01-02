@@ -7,7 +7,7 @@ MAX_SIZE = 3
 
 class Asteroid(GamePiece):
     def __init__(self, x, y, size, speed_x, speed_y):
-        GamePiece.__init__(self, x, y, speed_x, speed_y)
+        super().__init__(x, y, speed_x, speed_y)
         self.__size = size
 
     @property
@@ -24,7 +24,12 @@ class Asteroid(GamePiece):
 
         self.__size = size
 
+    # TODO: Keep to the API we created and just name it radius (and make a property)
     def calculate_radius(self):
+        """
+        Gets the asteroid radius
+        :return: An integer representing the asteroid radius
+        """
         return self.size * 10 - 5
 
     def has_intersection(self, obj):

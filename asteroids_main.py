@@ -44,10 +44,12 @@ class GameRunner:
         self.__score = START_SCORE
         self.__life = START_LIFE
 
+    # TODO: According to the instructions, the asteroids should be created inside __init__. Make this method private
+    #  and call it from the ctor
     def build_game(self):
         """
         in charge of building the game, ships and asteroids at the beginning
-        :return: 
+        :return: None
         """
         self.__ship = Ship(randint(self.__screen_min_x, self.__screen_max_x),
                            randint(self.__screen_min_y, self.__screen_max_y),
@@ -74,7 +76,7 @@ class GameRunner:
                                         self.__screen_max_y),
                                 ASTEROID_SIZE, randint(ASTEROID_MIN_SPEED_X,
                                                        ASTEROID_MAX_SPEED_X),
-                                randint(ASTEROID_MIN_SPEED_X,
+                                randint(ASTEROID_MIN_SPEED_Y,
                                         ASTEROID_MAX_SPEED_Y))
             while asteroid.has_intersection(self.__ship):
                 asteroid = Asteroid(randint(self.__screen_min_x,
@@ -84,7 +86,7 @@ class GameRunner:
                                     ASTEROID_SIZE,
                                     randint(ASTEROID_MIN_SPEED_X,
                                             ASTEROID_MAX_SPEED_X),
-                                    randint(ASTEROID_MIN_SPEED_X,
+                                    randint(ASTEROID_MIN_SPEED_Y,
                                             ASTEROID_MAX_SPEED_Y))
             asteroids.append(asteroid)
 
@@ -149,7 +151,7 @@ class GameRunner:
                 self.__life -= 1
                 collided_asteroids.append(asteroid)
 
-        #TODO: Should be seperate function
+        # TODO: Should be seperate function
         # remove all collided asteroids
         for asteroid in collided_asteroids:
             self.__screen.unregister_asteroid(asteroid)
@@ -163,6 +165,7 @@ class GameRunner:
         """
         self.__draw_all_gamepieces()
         self.__move_all_gamepieces()
+
         self.__ship_asteroid_collision()
         self.__torpedoes_asteroid_hit()
 
@@ -172,23 +175,34 @@ class GameRunner:
             self.__ship.change_heading(0)
         if self.__screen.is_up_pressed():
             self.__ship.accelerate()
-        #TODO: Should be seperate function
         if self.__screen.is_space_pressed() and len(
                 self.__torpedoes) < MAX_TORPEDO_NUM:
-            x_speed = self.__ship.speed_x + 2 * math.cos(
-                math.radians(self.__ship.heading))
-            y_speed = self.__ship.speed_y + 2 * math.sin(
-                math.radians(self.__ship.heading))
-            torpedo = Torpedo(self.__ship.x, self.__ship.y,
-                              self.__ship.heading, x_speed, y_speed)
-            self.__torpedoes.append(torpedo)
-            self.__screen.register_torpedo(torpedo)
+            self.__shoot_torpedo()
+
         self.__remove_old_torpedoes()
+
         game_over_msg = self.__is_game_over()
         if game_over_msg is not None:
             self.__screen.show_message("Game Over", game_over_msg)
             self.__screen.end_game()
             sys.exit()
+
+    def __shoot_torpedo(self):
+        """
+        Creates a new torpedo and adds it to the game
+        :return: None
+        """
+        # Torpedo creation
+        x_speed = self.__ship.speed_x + 2 * math.cos(
+            math.radians(self.__ship.heading))
+        y_speed = self.__ship.speed_y + 2 * math.sin(
+            math.radians(self.__ship.heading))
+        torpedo = Torpedo(self.__ship.x, self.__ship.y,
+                          self.__ship.heading, x_speed, y_speed)
+
+        # Adds and registers the new torpedo
+        self.__torpedoes.append(torpedo)
+        self.__screen.register_torpedo(torpedo)
 
     def __torpedoes_asteroid_hit(self):
         """
@@ -201,7 +215,7 @@ class GameRunner:
                 if asteroid.has_intersection(torpedo):
                     self.__torpedo_hit(asteroid, torpedo)
                     # No need to continue scanning the other torpedoes if 
-                    # the asteroid was hit
+                    # the asteroid was hit once, so break inner loop
                     break
 
     def __torpedo_hit(self, asteroid, torpedo):
@@ -224,28 +238,35 @@ class GameRunner:
                             self.__asteroids if
                             curr_asteroid is not asteroid]
 
-        #TODO: Maybe seperate function?
         # Split the asteroid if it is not a small one
-        if new_asteroid_size != 0:
-            speed_x = (torpedo.speed_x + asteroid.speed_x) / (
-                    (asteroid.speed_x ** 2 + asteroid.speed_y ** 2) ** 0.5)
-            speed_y = (torpedo.speed_y + asteroid.speed_y) / (
-                    (asteroid.speed_x ** 2 + asteroid.speed_y ** 2) ** 0.5)
+        if asteroid.size != 1:
+            self.__split_asteroid(asteroid, torpedo)
 
-            # Create two asteroids with opposite speeds
-            first_new_asteroid = Asteroid(asteroid.x, asteroid.y,
-                                          new_asteroid_size, speed_x, speed_y)
-            second_new_asteroid = Asteroid(asteroid.x, asteroid.y,
-                                           new_asteroid_size, speed_x * -1,
-                                           speed_y * -1)
-
-            # Add and register the new asteroids
-            self.__asteroids.append(first_new_asteroid)
-            self.__asteroids.append(second_new_asteroid)
-            self.__screen.register_asteroid(first_new_asteroid,
-                                            new_asteroid_size)
-            self.__screen.register_asteroid(second_new_asteroid,
-                                            new_asteroid_size)
+    def __split_asteroid(self, asteroid, torpedo):
+        """
+        Splits a hit asteroid
+        :param asteroid: The asteroid that was hit
+        :param torpedo: The hitting torpedo
+        :return: None
+        """
+        new_asteroid_size = asteroid.size - 1
+        speed_x = (torpedo.speed_x + asteroid.speed_x) / (
+                (asteroid.speed_x ** 2 + asteroid.speed_y ** 2) ** 0.5)
+        speed_y = (torpedo.speed_y + asteroid.speed_y) / (
+                (asteroid.speed_x ** 2 + asteroid.speed_y ** 2) ** 0.5)
+        # Create two asteroids with opposite speeds
+        first_new_asteroid = Asteroid(asteroid.x, asteroid.y,
+                                      new_asteroid_size, speed_x, speed_y)
+        second_new_asteroid = Asteroid(asteroid.x, asteroid.y,
+                                       new_asteroid_size, speed_x * -1,
+                                       speed_y * -1)
+        # Add and register the new asteroids
+        self.__asteroids.append(first_new_asteroid)
+        self.__asteroids.append(second_new_asteroid)
+        self.__screen.register_asteroid(first_new_asteroid,
+                                        new_asteroid_size)
+        self.__screen.register_asteroid(second_new_asteroid,
+                                        new_asteroid_size)
 
     def __remove_old_torpedoes(self):
         """

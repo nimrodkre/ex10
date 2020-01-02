@@ -31,6 +31,8 @@ class Ship(GamePiece):
                      if 1 than left, and change 7 degrees counter-clockwise
         :return: None
         """
+        # TODO: For readability, define a constant named CLOCKWISE/COUNTERCLOCKWISE and compare the parameter
+        #  to it (and use the same constant in the method call). Or separate to 2 different methods
         if side:
             new_heading = (self.heading + DEGREES_CHANGE) % DEGREES_CIRCLE
         else:
