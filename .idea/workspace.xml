@@ -21,8 +21,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ship.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="38" column="34" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
+            <state relative-caret-position="333">
+              <caret line="46" column="74" selection-start-line="46" selection-start-column="74" selection-end-line="46" selection-end-column="74" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -33,8 +33,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_piece.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="48" column="73" selection-start-line="48" selection-start-column="72" selection-end-line="48" selection-end-column="73" />
+            <state relative-caret-position="680">
+              <caret line="40" column="75" lean-forward="true" selection-start-line="40" selection-start-column="75" selection-end-line="40" selection-end-column="75" />
             </state>
           </provider>
         </entry>
@@ -42,17 +42,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/torpedo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-66">
-              <caret line="5" column="55" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
+            <state relative-caret-position="-151">
+              <caret column="32" lean-forward="true" selection-start-column="32" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/asteroids_main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2696">
-              <caret line="195" column="8" selection-start-line="195" selection-start-column="8" selection-end-line="195" selection-end-column="8" />
+            <state relative-caret-position="1014">
+              <caret line="235" column="57" selection-start-line="235" selection-start-column="57" selection-end-line="235" selection-end-column="57" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -69,11 +69,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/asteroid.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+            <state relative-caret-position="308">
+              <caret line="43" column="38" selection-start-line="43" selection-start-column="38" selection-end-line="43" selection-end-column="38" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -106,6 +106,7 @@
       <find>build_game</find>
       <find>__build_game</find>
       <find>SCORE_TABLE</find>
+      <find>new_asteroid_size</find>
     </findStrings>
     <replaceStrings>
       <replace>__size</replace>
@@ -130,16 +131,16 @@
         <option value="$PROJECT_DIR$/quiz10.py" />
         <option value="$PROJECT_DIR$/AUTHORS" />
         <option value="$PROJECT_DIR$/asteroids_main.py" />
-        <option value="$PROJECT_DIR$/asteroid.py" />
         <option value="$PROJECT_DIR$/ship.py" />
+        <option value="$PROJECT_DIR$/asteroid.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="950" />
-    <option name="y" value="-10" />
-    <option name="width" value="979" />
-    <option name="height" value="1049" />
+    <option name="x" value="951" />
+    <option name="y" value="-9" />
+    <option name="width" value="978" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -162,7 +163,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ex9" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ex6" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -316,51 +317,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/torpedo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-66">
-          <caret line="5" column="55" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/asteroid.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/screen.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5817" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/torpedo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-151">
+          <caret column="32" lean-forward="true" selection-start-column="32" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game_piece.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="75" lean-forward="true" selection-start-line="40" selection-start-column="75" selection-end-line="40" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ship.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="38" column="34" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
+        <state relative-caret-position="333">
+          <caret line="46" column="74" selection-start-line="46" selection-start-column="74" selection-end-line="46" selection-end-column="74" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game_piece.py">
+    <entry file="file://$PROJECT_DIR$/asteroids_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="48" column="73" selection-start-line="48" selection-start-column="72" selection-end-line="48" selection-end-column="73" />
+        <state relative-caret-position="1014">
+          <caret line="235" column="57" selection-start-line="235" selection-start-column="57" selection-end-line="235" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/asteroids_main.py">
+    <entry file="file://$PROJECT_DIR$/asteroid.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2696">
-          <caret line="195" column="8" selection-start-line="195" selection-start-column="8" selection-end-line="195" selection-end-column="8" />
+        <state relative-caret-position="308">
+          <caret line="43" column="38" selection-start-line="43" selection-start-column="38" selection-end-line="43" selection-end-column="38" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -4,6 +4,8 @@ import math
 RADIUS = 1
 DEGREES_CHANGE = 7
 DEGREES_CIRCLE = 360
+CLOCKWISE = 1
+COUNTERCLOCKWISE = 0
 
 
 class Ship(GamePiece):
@@ -31,23 +33,16 @@ class Ship(GamePiece):
                      if 1 than left, and change 7 degrees counter-clockwise
         :return: None
         """
-        # TODO: For readability, define a constant named CLOCKWISE/COUNTERCLOCKWISE and compare the parameter
-        #  to it (and use the same constant in the method call). Or separate to 2 different methods
-        if side:
-            new_heading = (self.heading + DEGREES_CHANGE) % DEGREES_CIRCLE
-        else:
-            new_heading = (self.heading - DEGREES_CHANGE) % DEGREES_CIRCLE
-
-        self.heading = new_heading
+        if side == CLOCKWISE:
+            self.heading = (self.heading + DEGREES_CHANGE) % DEGREES_CIRCLE
+        elif side == COUNTERCLOCKWISE:
+            self.heading = (self.heading - DEGREES_CHANGE) % DEGREES_CIRCLE
 
     def accelerate(self):
         """
         accelerates movement of ship
         :return: None
         """
-        new_speed_x = self.speed_x + math.cos(math.radians(self.heading))
-        new_speed_y = self.speed_y + math.sin(math.radians(self.heading))
-
-        self.speed_x = new_speed_x
-        self.speed_y = new_speed_y
+        self.speed_x = self.speed_x + math.cos(math.radians(self.heading))
+        self.speed_y = self.speed_y + math.sin(math.radians(self.heading))
 

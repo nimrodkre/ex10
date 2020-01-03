@@ -14,6 +14,14 @@ class Asteroid(GamePiece):
     def size(self):
         return self.__size
 
+    @property
+    def radius(self):
+        """
+        Gets the asteroid radius
+        :return: An integer representing the asteroid radius
+        """
+        return self.size * 10 - 5
+
     @size.setter
     def size(self, size):
         if isinstance(size, int):
@@ -24,14 +32,6 @@ class Asteroid(GamePiece):
 
         self.__size = size
 
-    # TODO: Keep to the API we created and just name it radius (and make a property)
-    def calculate_radius(self):
-        """
-        Gets the asteroid radius
-        :return: An integer representing the asteroid radius
-        """
-        return self.size * 10 - 5
-
     def has_intersection(self, obj):
         """
         checks if the given object and the asteroid have collided
@@ -41,4 +41,4 @@ class Asteroid(GamePiece):
         distance = math.sqrt(math.pow((obj.x - self.x), 2) +
                              math.pow((obj.y - self.y), 2))
 
-        return distance <= self.calculate_radius() + obj.radius
+        return distance <= self.radius + obj.radius

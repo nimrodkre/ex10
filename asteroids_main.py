@@ -44,9 +44,9 @@ class GameRunner:
         self.__score = START_SCORE
         self.__life = START_LIFE
 
-    # TODO: According to the instructions, the asteroids should be created inside __init__. Make this method private
-    #  and call it from the ctor
-    def build_game(self):
+        self.__build_game()
+
+    def __build_game(self):
         """
         in charge of building the game, ships and asteroids at the beginning
         :return: None
@@ -151,9 +151,15 @@ class GameRunner:
                 self.__life -= 1
                 collided_asteroids.append(asteroid)
 
-        # TODO: Should be seperate function
-        # remove all collided asteroids
-        for asteroid in collided_asteroids:
+        self.__remove_asteroids(collided_asteroids)
+
+    def __remove_asteroids(self, asteroids):
+        """
+        removes the given asteroids from the game board
+        :param asteroids:
+        :return:
+        """
+        for asteroid in asteroids:
             self.__screen.unregister_asteroid(asteroid)
             self.__asteroids.remove(asteroid)
 
@@ -225,9 +231,9 @@ class GameRunner:
         :return: None
         """
         self.__score += SCORE_TABLE[asteroid.size]
-        new_asteroid_size = asteroid.size - 1
 
         # Remove and unregister the torpedo and the asteroid
+        # TODO: Use __remove asteroid/ torpedoe functions
         self.__screen.unregister_asteroid(asteroid)
         self.__screen.unregister_torpedo(torpedo)
 
@@ -298,7 +304,6 @@ class GameRunner:
 
 def main(amount):
     runner = GameRunner(amount)
-    runner.build_game()
     runner.run()
 
 
