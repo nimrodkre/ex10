@@ -25,6 +25,8 @@ START_LIFE = 3
 SHIP_HEADER_START = 0
 SHIP_SPEED_X_START = 0
 SHIP_SPEED_Y_START = 0
+CLOCKWISE = 1
+COUNTERCLOCKWISE = 0
 
 
 class GameRunner:
@@ -198,9 +200,9 @@ class GameRunner:
         self.__torpedoes_asteroid_hit()
 
         if self.__screen.is_left_pressed():
-            self.__ship.change_heading(1)
+            self.__ship.change_heading(COUNTERCLOCKWISE)
         if self.__screen.is_right_pressed():
-            self.__ship.change_heading(0)
+            self.__ship.change_heading(CLOCKWISE)
         if self.__screen.is_up_pressed():
             self.__ship.accelerate()
         if self.__screen.is_space_pressed() and len(
