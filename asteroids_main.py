@@ -234,15 +234,12 @@ class GameRunner:
 
         # Remove and unregister the torpedo and the asteroid
         # TODO: Use __remove asteroid/ torpedoe functions
-        self.__screen.unregister_asteroid(asteroid)
+        self.__remove_asteroids([asteroid])
         self.__screen.unregister_torpedo(torpedo)
 
         self.__torpedoes = [curr_torpedo for curr_torpedo in self.__torpedoes
                             if
                             curr_torpedo is not torpedo]
-        self.__asteroids = [curr_asteroid for curr_asteroid in
-                            self.__asteroids if
-                            curr_asteroid is not asteroid]
 
         # Split the asteroid if it is not a small one
         if asteroid.size != 1:
