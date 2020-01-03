@@ -13,16 +13,26 @@ class Ship(GamePiece):
     Represent the player's ship in the asteroids game
     """
     def __init__(self, x, y, heading, speed_x, speed_y):
+        """
+        Inherits from GamePiece
+        :param heading: The direction in relation to the x axis
+        """
         GamePiece.__init__(self, x, y, speed_x, speed_y)
         self.__heading = heading
         self.__radius = RADIUS
 
     @property
     def heading(self):
+        """
+        :return: int, the heading of the ship
+        """
         return self.__heading
 
     @property
     def radius(self):
+        """
+        :return: int, the radius of the ship
+        """
         return self.__radius
 
     @heading.setter
