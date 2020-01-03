@@ -156,12 +156,22 @@ class GameRunner:
     def __remove_asteroids(self, asteroids):
         """
         removes the given asteroids from the game board
-        :param asteroids:
-        :return:
+        :param asteroids: The asteroids to remove
+        :return: None
         """
         for asteroid in asteroids:
             self.__screen.unregister_asteroid(asteroid)
             self.__asteroids.remove(asteroid)
+
+    def __remove_torpedoes(self, torpedoes):
+        """
+        removes the given torpedoes from the game board
+        :param torpedoes: The asteroids to remove
+        :return: None
+        """
+        for torpedo in torpedoes:
+            self.__screen.unregister_torpedo(torpedo)
+            self.__torpedoes.remove(torpedo)
 
     def _game_loop(self):
         """
@@ -233,13 +243,8 @@ class GameRunner:
         self.__score += SCORE_TABLE[asteroid.size]
 
         # Remove and unregister the torpedo and the asteroid
-        # TODO: Use __remove asteroid/ torpedoe functions
         self.__remove_asteroids([asteroid])
-        self.__screen.unregister_torpedo(torpedo)
-
-        self.__torpedoes = [curr_torpedo for curr_torpedo in self.__torpedoes
-                            if
-                            curr_torpedo is not torpedo]
+        self.__remove_torpedoes([torpedo])
 
         # Split the asteroid if it is not a small one
         if asteroid.size != 1:
@@ -276,14 +281,12 @@ class GameRunner:
         Increase the age of the existing torpedoes and remove the old ones.
         :return: None
         """
-        new_torpedoes = []
+        old_torpedoes = []
         for torpedo in self.__torpedoes:
             torpedo.increase_life()
-            if torpedo.life <= MAX_TORPEDO_LIFE:
-                new_torpedoes.append(torpedo)
-            else:
-                self.__screen.unregister_torpedo(torpedo)
-        self.__torpedoes = new_torpedoes
+            if torpedo.life > MAX_TORPEDO_LIFE:
+                old_torpedoes.append(torpedo)
+        self.__remove_torpedoes(old_torpedoes)
 
     def __is_game_over(self):
         """
