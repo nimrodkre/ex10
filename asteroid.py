@@ -6,6 +6,9 @@ MAX_SIZE = 3
 
 
 class Asteroid(GamePiece):
+    """
+    Represent a single asteroid in the game
+    """
     def __init__(self, x, y, size, speed_x, speed_y):
         super().__init__(x, y, speed_x, speed_y)
         self.__size = size

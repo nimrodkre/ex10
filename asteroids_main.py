@@ -28,8 +28,14 @@ SHIP_SPEED_Y_START = 0
 
 
 class GameRunner:
-
+    """
+    Manages an Asteroids game
+    """
     def __init__(self, asteroids_amount):
+        """
+        Creates a new asteroids game
+        :param asteroids_amount: The initial amount of asteroids in the game
+        """
         self.__screen = Screen()
 
         self.__screen_max_x = Screen.SCREEN_MAX_X

@@ -1,6 +1,15 @@
 class GamePiece:
-
+    """
+    Represent a object in the game that can be placed on the screen and move
+    """
     def __init__(self, x, y, speed_x, speed_y):
+        """
+        Creates a new game piece
+        :param x: The initial x location on the screen
+        :param y: The initial y location on the screen
+        :param speed_x: The initial speed on the x axis
+        :param speed_y: initial speed on the y axis
+        """
         self.__x = x
         self.__y = y
         self.__speed_x = speed_x
@@ -8,18 +17,34 @@ class GamePiece:
 
     @property
     def x(self):
+        """
+        The current X location of the game piece
+        :return: A float representing the X location on the screen
+        """
         return self.__x
 
     @property
     def y(self):
+        """
+        The current Y location of the game piece
+        :return: A float representing the Y location on the screen
+        """
         return self.__y
 
     @property
     def speed_x(self):
+        """
+        The current X speed of the game piece
+        :return: A float representing the X speed on the screen
+        """
         return self.__speed_x
 
     @property
     def speed_y(self):
+        """
+        The current Y speed of the game piece
+        :return: A float representing the Y speed on the screen
+        """
         return self.__speed_y
 
     @x.setter

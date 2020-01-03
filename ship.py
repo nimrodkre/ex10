@@ -9,6 +9,9 @@ COUNTERCLOCKWISE = 0
 
 
 class Ship(GamePiece):
+    """
+    Represent the player's ship in the asteroids game
+    """
     def __init__(self, x, y, heading, speed_x, speed_y):
         GamePiece.__init__(self, x, y, speed_x, speed_y)
         self.__heading = heading
