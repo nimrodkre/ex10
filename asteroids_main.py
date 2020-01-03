@@ -185,6 +185,12 @@ class GameRunner:
         a command has been evoked.
         :return: 
         """
+        game_over_msg = self.__is_game_over()
+        if game_over_msg is not None:
+            self.__screen.show_message("Game Over", game_over_msg)
+            self.__screen.end_game()
+            sys.exit()
+
         self.__draw_all_gamepieces()
         self.__move_all_gamepieces()
 
@@ -203,11 +209,6 @@ class GameRunner:
 
         self.__remove_old_torpedoes()
 
-        game_over_msg = self.__is_game_over()
-        if game_over_msg is not None:
-            self.__screen.show_message("Game Over", game_over_msg)
-            self.__screen.end_game()
-            sys.exit()
 
     def __shoot_torpedo(self):
         """
