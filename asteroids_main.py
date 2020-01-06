@@ -2,7 +2,7 @@ import math
 
 from screen import Screen
 import sys
-from random import randint
+import random
 from ship import Ship
 from asteroid import Asteroid
 from torpedo import Torpedo
@@ -14,10 +14,8 @@ SCORE_TABLE = {
 }
 DEFAULT_ASTEROIDS_NUM = 5
 ASTEROID_SIZE = 3
-ASTEROID_MIN_SPEED_X = 1
-ASTEROID_MAX_SPEED_X = 4
-ASTEROID_MIN_SPEED_Y = 1
-ASTEROID_MAX_SPEED_Y = 4
+ASTEROID_MIN_AXIS_SPEED = 1
+ASTEROID_MAX_AXIS_SPEED = 4
 MAX_TORPEDO_NUM = 10
 MAX_TORPEDO_LIFE = 200
 START_SCORE = 0
@@ -33,6 +31,7 @@ class GameRunner:
     """
     Manages an Asteroids game
     """
+
     def __init__(self, asteroids_amount):
         """
         Creates a new asteroids game
@@ -59,8 +58,8 @@ class GameRunner:
         in charge of building the game, ships and asteroids at the beginning
         :return: None
         """
-        self.__ship = Ship(randint(self.__screen_min_x, self.__screen_max_x),
-                           randint(self.__screen_min_y, self.__screen_max_y),
+        self.__ship = Ship(random.randint(self.__screen_min_x, self.__screen_max_x),
+                           random.randint(self.__screen_min_y, self.__screen_max_y),
                            SHIP_HEADER_START, SHIP_SPEED_X_START,
                            SHIP_SPEED_Y_START)
 
@@ -68,6 +67,14 @@ class GameRunner:
 
         for asteroid in self.__asteroids:
             self.__screen.register_asteroid(asteroid, asteroid.size)
+
+    @staticmethod
+    def __get_random_speed():
+        """
+        Gets speed on one of the axises
+        :return: The random speed value
+        """
+        return random.randint(ASTEROID_MIN_AXIS_SPEED, ASTEROID_MAX_AXIS_SPEED) * random.choice([-1, 1])
 
     def __build_asteroids(self, asteroids_amounts):
         """
@@ -78,24 +85,20 @@ class GameRunner:
         asteroids = []
 
         for i in range(asteroids_amounts):
-            asteroid = Asteroid(randint(self.__screen_min_x,
-                                        self.__screen_max_x),
-                                randint(self.__screen_min_y,
-                                        self.__screen_max_y),
-                                ASTEROID_SIZE, randint(ASTEROID_MIN_SPEED_X,
-                                                       ASTEROID_MAX_SPEED_X),
-                                randint(ASTEROID_MIN_SPEED_Y,
-                                        ASTEROID_MAX_SPEED_Y))
+            asteroid = Asteroid(random.randint(self.__screen_min_x,
+                                               self.__screen_max_x),
+                                random.randint(self.__screen_min_y,
+                                               self.__screen_max_y),
+                                ASTEROID_SIZE, self.__get_random_speed(),
+                                self.__get_random_speed())
             while asteroid.has_intersection(self.__ship):
-                asteroid = Asteroid(randint(self.__screen_min_x,
-                                            self.__screen_max_x),
-                                    randint(self.__screen_min_y,
-                                            self.__screen_max_y),
+                asteroid = Asteroid(random.randint(self.__screen_min_x,
+                                                   self.__screen_max_x),
+                                    random.randint(self.__screen_min_y,
+                                                   self.__screen_max_y),
                                     ASTEROID_SIZE,
-                                    randint(ASTEROID_MIN_SPEED_X,
-                                            ASTEROID_MAX_SPEED_X),
-                                    randint(ASTEROID_MIN_SPEED_Y,
-                                            ASTEROID_MAX_SPEED_Y))
+                                    self.__get_random_speed(),
+                                    self.__get_random_speed())
             asteroids.append(asteroid)
 
         return asteroids
@@ -210,7 +213,6 @@ class GameRunner:
             self.__shoot_torpedo()
 
         self.__remove_old_torpedoes()
-
 
     def __shoot_torpedo(self):
         """
