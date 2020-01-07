@@ -158,8 +158,10 @@ class GameRunner:
             if asteroid.has_intersection(self.__ship):
                 self.__screen.show_message("Collision", "ship collided with "
                                                         "asteroid")
-                self.__screen.remove_life()
-                self.__life -= 1
+                # Reduce life only if there is something to reduce from
+                if self.__life > 0:
+                    self.__screen.remove_life()
+                    self.__life -= 1
                 collided_asteroids.append(asteroid)
 
         self.__remove_asteroids(collided_asteroids)
