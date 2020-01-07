@@ -1,5 +1,4 @@
 import math
-
 from screen import Screen
 import sys
 import random

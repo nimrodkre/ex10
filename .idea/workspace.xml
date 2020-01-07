@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="817dd8ad-cc49-4274-ab97-32584c191c12" name="Default Changelist" comment="Ignore .idea directory">
-      <change beforePath="$PROJECT_DIR$/.idea/ex10.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ex10.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="817dd8ad-cc49-4274-ab97-32584c191c12" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/asteroids_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/asteroids_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ex10.zip" beforeDir="false" afterPath="$PROJECT_DIR$/ex10.zip" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578314383685</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Handle a double collision incident">
+      <created>1578400197078</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1578400197078</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -132,13 +136,14 @@
     <MESSAGE value="Add torpedoes to the game" />
     <MESSAGE value="Add game over functionality" />
     <MESSAGE value="Initial value of asteroid can be negative" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial value of asteroid can be negative" />
+    <MESSAGE value="Handle a double collision incident" />
+    <option name="LAST_COMMIT_MESSAGE" value="Handle a double collision incident" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="338" y="30" key="CommitChangelistDialog2" timestamp="1578400021399">
+    <state x="338" y="30" key="CommitChangelistDialog2" timestamp="1578400196293">
       <screen x="0" y="0" width="1368" height="872" />
     </state>
-    <state x="338" y="30" key="CommitChangelistDialog2/0.0.1368.872@0.0.1368.872" timestamp="1578400021399" />
+    <state x="338" y="30" key="CommitChangelistDialog2/0.0.1368.872@0.0.1368.872" timestamp="1578400196293" />
     <state width="1352" height="227" key="GridCell.Tab.0.bottom" timestamp="1578315397729">
       <screen x="0" y="0" width="1368" height="872" />
     </state>
@@ -187,10 +192,10 @@
       <screen x="0" y="0" width="1368" height="872" />
     </state>
     <state x="408" y="179" width="540" height="524" key="StructurePopup/0.0.1368.872@0.0.1368.872" timestamp="1578301428511" />
-    <state x="277" y="169" key="Vcs.Push.Dialog.v2" timestamp="1578314388819">
+    <state x="277" y="169" key="Vcs.Push.Dialog.v2" timestamp="1578400199007">
       <screen x="0" y="0" width="1368" height="872" />
     </state>
-    <state x="277" y="169" key="Vcs.Push.Dialog.v2/0.0.1368.872@0.0.1368.872" timestamp="1578314388819" />
+    <state x="277" y="169" key="Vcs.Push.Dialog.v2/0.0.1368.872@0.0.1368.872" timestamp="1578400199007" />
     <state x="380" y="260" key="com.intellij.ide.util.TipDialog" timestamp="1578323773542">
       <screen x="0" y="0" width="1368" height="872" />
     </state>
